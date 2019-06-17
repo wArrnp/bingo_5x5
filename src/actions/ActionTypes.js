@@ -1,6 +1,5 @@
 export const types = {
   SET_GAME: "SET_GAME",
   CLICK_CELL: "CLICK_CELL",
-  TOGGLE_TURN: "TOGGLE_TURN",
   RESET_BOARD: "RESET_BOARD"
 };

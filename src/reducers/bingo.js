@@ -55,14 +55,8 @@ export default function(state = initialState, action) {
         fstBoard,
         sndBoard,
         fstBingoList: [...state.fstBingoList, ...fstBingoList],
-        sndBingoList: [...state.sndBingoList, ...sndBingoList]
-      };
-
-    case types.TOGGLE_TURN:
-      const { turn } = action;
-      return {
-        ...state,
-        turn: turn === 1 ? 2 : 1
+        sndBingoList: [...state.sndBingoList, ...sndBingoList],
+        turn: action.turn === 1 ? 2 : 1
       };
     case types.RESET_BOARD:
       return {

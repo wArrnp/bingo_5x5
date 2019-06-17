@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { clickCell, toggleTurn } from "../../actions";
+import { playingActions } from "../../actions";
 import { bindActionCreators } from "redux";
 import { BoardCell, Board } from "../../components";
 
@@ -10,16 +10,10 @@ class BoardContainer extends Component {
   };
 
   onClickCell = ({ number, picked }) => {
-    const {
-      started,
-      turn,
-      player,
-      /*toggleTurn, clickCell */ boardActions
-    } = this.props;
-    const { toggleTurn, clickCell } = boardActions;
+    const { started, turn, player, PlayingActions } = this.props;
+    const { clickCell } = PlayingActions;
     if (started && turn === player && !picked) {
-      clickCell(number);
-      toggleTurn(player);
+      clickCell(number, player);
     } else if (started && turn !== player) {
       this.setState({
         onModal: true
@@ -56,7 +50,7 @@ const mapStateToProps = state => ({
   turn: state.bingo.turn
 });
 const mapDispatchToProps = dispatch => ({
-  boardActions: bindActionCreators({ clickCell, toggleTurn }, dispatch)
+  PlayingActions: bindActionCreators(playingActions, dispatch)
   // clickCell: number => dispatch(clickCell(number)),
   // toggleTurn: turn => dispatch(toggleTurn(turn))
 });

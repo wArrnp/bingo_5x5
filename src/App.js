@@ -1,19 +1,20 @@
 import React from "react";
 import "./App.scss";
 import { connect } from "react-redux";
-import { setGame, resetBoard } from "./actions";
+import { bindActionCreators } from "redux";
+import { settingActions } from "./actions";
 import { makeBingo } from "./utils/makeBingo";
 import { Bingo } from "./containers";
 import { Modal } from "./components";
 
 class App extends React.Component {
   onClickButton = () => {
-    const { setGame } = this.props;
+    const { setGame } = this.props.SettingActions;
     setGame(makeBingo(25), makeBingo(25));
   };
 
   onReset = () => {
-    const { resetBoard } = this.props;
+    const { resetBoard } = this.props.SettingActions;
     resetBoard();
   };
 
@@ -45,8 +46,7 @@ const mapStateToProps = state => ({
   sndBingoList: state.bingo.sndBingoList
 });
 const mapDispatchToProps = dispatch => ({
-  setGame: (oneP, twoP) => dispatch(setGame(oneP, twoP)),
-  resetBoard: () => dispatch(resetBoard())
+  SettingActions: bindActionCreators(settingActions, dispatch)
 });
 
 export default connect(
