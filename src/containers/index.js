@@ -1,5 +1,5 @@
 import Bingo from "./Bingo/BingoContainer";
-import BingoResult from "./BingoResult/BingoResultContainer";
+import BingoCompletedLines from "./BingoCompletedLines/BingoCompletedLines";
 import BingoBoard from "./BingoBoard/BingoBoardContainer";
 
-export { Bingo, BingoResult, BingoBoard };
+export { Bingo, BingoCompletedLines, BingoBoard };

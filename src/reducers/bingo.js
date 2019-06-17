@@ -1,72 +1,83 @@
 import { types } from "../actions/ActionTypes";
-import { checkBingo } from "../utils/checkBingo";
+import { getCompletedLinesCombineIndex } from "../utils/getCompletedLinesCombineIndex";
 
-const initBingo = size => {
-  return [...Array(25)].map(data => ({ number: data, picked: false }));
+const initBingoBoard = size => {
+  // return [...Array(25)].map(() => ({ number: undefined, picked: false }));
+  return Array(25).fill({ number: undefined, isPicked: false });
 };
 
 const initialState = {
-  fstBoard: initBingo(),
-  sndBoard: initBingo(),
-  fstBingoList: [],
-  sndBingoList: [],
-  started: false,
+  firstBoard: initBingoBoard(),
+  secondBoard: initBingoBoard(),
+  firstBingoCompletedLines: [],
+  secondBingoCompletedLines: [],
+  isStarted: false,
   turn: -1
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case types.SET_GAME:
-      const newFstBoard = action.fstBoard.map(number => ({
+      const newFirstBoard = action.firstBoard.map(number => ({
         number,
-        picked: false
+        isPicked: false
       }));
-      const newSndBoard = action.sndBoard.map(number => ({
+      const newSecondBoard = action.secondBoard.map(number => ({
         number,
-        picked: false
+        isPicked: false
       }));
 
       return {
         ...state,
-        fstBoard: newFstBoard,
-        sndBoard: newSndBoard,
-        fstBingoList: [],
-        sndBingoList: [],
-        started: true,
+        firstBoard: newFirstBoard,
+        secondBoard: newSecondBoard,
+        firstBingoCompletedLines: [],
+        secondBingoCompletedLines: [],
+        isStarted: true,
         turn: 1
       };
 
     case types.CLICK_CELL:
-      const fstBoard = [...state.fstBoard];
-      const sndBoard = [...state.sndBoard];
-      const fstIndex = fstBoard.findIndex(
-        item => item.number === action.number
+      const firstIndex = state.firstBoard.findIndex(
+        ({ number }) => number === action.number
       );
-      const sndIndex = sndBoard.findIndex(
-        item => item.number === action.number
+      const secondIndex = state.secondBoard.findIndex(
+        ({ number }) => number === action.number
       );
-      fstBoard[fstIndex].picked = true;
-      sndBoard[sndIndex].picked = true;
-      const fstBingoList = checkBingo(fstBoard, fstIndex);
-      const sndBingoList = checkBingo(sndBoard, sndIndex);
+
+      const firstBingoCompletedLinesCombineIndex = getCompletedLinesCombineIndex(
+        state.firstBoard,
+        firstIndex
+      );
+      const secondBingoCompletedLinesCombineIndex = getCompletedLinesCombineIndex(
+        state.secondBoard,
+        secondIndex
+      );
 
       return {
         ...state,
-        fstBoard,
-        sndBoard,
-        fstBingoList: [...state.fstBingoList, ...fstBingoList],
-        sndBingoList: [...state.sndBingoList, ...sndBingoList],
+        firstBoard: [
+          ...state.firstBoard.slice(0, firstIndex),
+          { number: state.firstBoard[firstIndex].number, isPicked: true },
+          ...state.firstBoard.slice(firstIndex + 1)
+        ],
+        secondBoard: [
+          ...state.secondBoard.slice(0, secondIndex),
+          { number: state.secondBoard[secondIndex].number, isPicked: true },
+          ...state.secondBoard.slice(secondIndex + 1)
+        ],
+        firstBingoCompletedLines: [
+          ...state.firstBingoCompletedLines,
+          ...firstBingoCompletedLinesCombineIndex
+        ],
+        secondBingoCompletedLines: [
+          ...state.secondBingoCompletedLines,
+          ...secondBingoCompletedLinesCombineIndex
+        ],
         turn: action.turn === 1 ? 2 : 1
       };
     case types.RESET_BOARD:
-      return {
-        fstBoard: initBingo(),
-        sndBoard: initBingo(),
-        fstBingoList: [],
-        sndBingoList: [],
-        started: false,
-        turn: -1
-      };
+      return initialState;
     default:
       return state;
   }

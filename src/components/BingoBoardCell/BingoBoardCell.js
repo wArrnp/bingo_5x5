@@ -2,12 +2,15 @@ import React from "react";
 
 import "./BingoBoardCell.scss";
 
-const BoardCell = ({ number, picked, onClickCell }) => {
+const BingoBoardCell = ({ number, isPicked, onClickCell }) => {
   return (
-    <div onClick={onClickCell} className={`board--cell ${picked && "picked"}`}>
+    <div
+      onClick={onClickCell}
+      className={`board--cell ${isPicked && "picked"}`}
+    >
       {number}
     </div>
   );
 };
 
-export default BoardCell;
+export default BingoBoardCell;

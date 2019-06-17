@@ -19,13 +19,22 @@ class App extends React.Component {
   };
 
   render() {
-    const { started, fstBingoList, sndBingoList } = this.props;
+    const {
+      started,
+      firstBingoCompletedLines,
+      secondBingoCompletedLines
+    } = this.props;
     let result = null;
-    if (fstBingoList.length >= 5 && sndBingoList.length >= 5)
+    if (
+      firstBingoCompletedLines.length >= 5 &&
+      secondBingoCompletedLines.length >= 5
+    )
       result = "무승부입니다.";
     else {
-      if (fstBingoList.length >= 5) result = "1P가 빙고를 완성했습니다.";
-      if (sndBingoList.length >= 5) result = "2P가 빙고를 완성했습니다.";
+      if (firstBingoCompletedLines.length >= 5)
+        result = "1P가 빙고를 완성했습니다.";
+      if (secondBingoCompletedLines.length >= 5)
+        result = "2P가 빙고를 완성했습니다.";
     }
     return (
       <div className="App">
@@ -41,9 +50,9 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  started: state.bingo.started,
-  fstBingoList: state.bingo.fstBingoList,
-  sndBingoList: state.bingo.sndBingoList
+  isStarted: state.bingo.isStarted,
+  firstBingoCompletedLines: state.bingo.firstBingoCompletedLines,
+  secondBingoCompletedLines: state.bingo.secondBingoCompletedLines
 });
 const mapDispatchToProps = dispatch => ({
   SettingActions: bindActionCreators(settingActions, dispatch)

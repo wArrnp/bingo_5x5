@@ -1,10 +1,10 @@
 import { types } from "./ActionTypes";
 
 export const settingActions = {
-  setGame: (fstBoard, sndBoard) => ({
+  setGame: (firstBoard, secondBoard) => ({
     type: types.SET_GAME,
-    fstBoard,
-    sndBoard
+    firstBoard,
+    secondBoard
   }),
   resetBoard: () => ({
     type: types.RESET_BOARD

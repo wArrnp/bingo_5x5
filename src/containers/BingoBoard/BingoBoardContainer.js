@@ -4,17 +4,17 @@ import { playingActions } from "../../actions";
 import { bindActionCreators } from "redux";
 import { BingoBoardCell, BingoBoard } from "../../components";
 
-class BoardContainer extends Component {
+class BingoBoardContainer extends Component {
   state = {
     onModal: false
   };
 
   onClickCell = ({ number, picked }) => {
-    const { started, turn, player, PlayingActions } = this.props;
+    const { isStarted, turn, player, PlayingActions } = this.props;
     const { clickCell } = PlayingActions;
-    if (started && turn === player && !picked) {
+    if (isStarted && turn === player && !picked) {
       clickCell(number, player);
-    } else if (started && turn !== player) {
+    } else if (isStarted && turn !== player) {
       this.setState({
         onModal: true
       });
@@ -27,13 +27,13 @@ class BoardContainer extends Component {
     });
   };
   render() {
-    const { player, fstBoard, sndBoard } = this.props;
+    const { player, firstBoard, secondBoard } = this.props;
     const { onModal } = this.state;
-    const board = player === 1 ? fstBoard : sndBoard;
+    const board = player === 1 ? firstBoard : secondBoard;
     const cells = board.map(data => (
       <BingoBoardCell
         number={data.number}
-        picked={data.picked}
+        isPicked={data.isPicked}
         onClickCell={() => this.onClickCell(data)}
       />
     ));
@@ -48,9 +48,9 @@ class BoardContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  fstBoard: state.bingo.fstBoard,
-  sndBoard: state.bingo.sndBoard,
-  started: state.bingo.started,
+  firstBoard: state.bingo.firstBoard,
+  secondBoard: state.bingo.secondBoard,
+  isStarted: state.bingo.isStarted,
   turn: state.bingo.turn
 });
 const mapDispatchToProps = dispatch => ({
@@ -62,4 +62,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(BoardContainer);
+)(BingoBoardContainer);

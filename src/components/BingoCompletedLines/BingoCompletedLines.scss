@@ -1,4 +1,4 @@
-.bingo--result {
+.bingo--completed--lines {
   &--wrapper {
     height: 23vh;
     margin-top: 1vh;
@@ -8,5 +8,10 @@
   &--title {
     text-align: center;
     margin-top: 0;
+  }
+
+  &--bar {
+    text-align: center;
+    margin: 3px;
   }
 }
