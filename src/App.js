@@ -1,16 +1,22 @@
 import React from "react";
 import "./App.scss";
 import { connect } from "react-redux";
-import { setGame } from "./actions";
+import { setGame, resetBoard } from "./actions";
 import { makeBingo } from "./utils/makeBingo";
 import BingoContainer from "./containers/BingoContainer";
-import ModalContainer from "./containers/ModalContainer";
+import Modal from "./components/Modal";
 
 class App extends React.Component {
   onClickButton = () => {
     const { setGame } = this.props;
     setGame(makeBingo(), makeBingo());
   };
+
+  onReset = () => {
+    const { resetBoard } = this.props;
+    resetBoard();
+  };
+
   render() {
     const { started, fstBingoList, sndBingoList } = this.props;
     let result = null;
@@ -27,7 +33,7 @@ class App extends React.Component {
         <button className="bingo--button" onClick={this.onClickButton}>
           {started ? "게임 재시작" : "게임 시작"}
         </button>
-        {result && <ModalContainer result={result} />}
+        {result && <Modal comment={result} onClick={this.onReset} />}
       </div>
     );
   }
@@ -39,7 +45,8 @@ const mapStateToProps = state => ({
   sndBingoList: state.bingo.sndBingoList
 });
 const mapDispatchToProps = dispatch => ({
-  setGame: (oneP, twoP) => dispatch(setGame(oneP, twoP))
+  setGame: (oneP, twoP) => dispatch(setGame(oneP, twoP)),
+  resetBoard: () => dispatch(resetBoard())
 });
 
 export default connect(
