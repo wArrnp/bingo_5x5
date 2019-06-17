@@ -1,9 +1,4 @@
-import {
-  SET_GAME,
-  CLICK_CELL,
-  TOGGLE_TURN,
-  RESET_BOARD
-} from "../actions/ActionTypes";
+import { types } from "../actions/ActionTypes";
 import { checkBingo } from "../utils/checkBingo";
 
 const initBingo = size => {
@@ -21,7 +16,7 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case SET_GAME:
+    case types.SET_GAME:
       const newFstBoard = action.fstBoard.map(number => ({
         number,
         picked: false
@@ -41,7 +36,7 @@ export default function(state = initialState, action) {
         turn: 1
       };
 
-    case CLICK_CELL:
+    case types.CLICK_CELL:
       const fstBoard = [...state.fstBoard];
       const sndBoard = [...state.sndBoard];
       const fstIndex = fstBoard.findIndex(
@@ -63,13 +58,13 @@ export default function(state = initialState, action) {
         sndBingoList: [...state.sndBingoList, ...sndBingoList]
       };
 
-    case TOGGLE_TURN:
+    case types.TOGGLE_TURN:
       const { turn } = action;
       return {
         ...state,
         turn: turn === 1 ? 2 : 1
       };
-    case RESET_BOARD:
+    case types.RESET_BOARD:
       return {
         fstBoard: initBingo(),
         sndBoard: initBingo(),

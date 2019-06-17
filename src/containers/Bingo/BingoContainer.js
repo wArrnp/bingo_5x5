@@ -1,21 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import "./BingoContainer.scss";
-import { BingoResult, Board } from "../";
+import { Bingo } from "../../components";
 
 class BingoContainer extends Component {
   render() {
     const { player, turn } = this.props;
-    return (
-      <div>
-        <p className="bingo--player">{`${player}p${
-          player === turn ? "(턴)" : ""
-        }`}</p>
-        <Board player={player} />
-        <BingoResult player={player} />
-      </div>
-    );
+    return <Bingo player={player} turn={turn} />;
   }
 }
 

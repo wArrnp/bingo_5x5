@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { clickCell, toggleTurn } from "../../actions/index";
-import { BoardCell, Modal } from "../../components";
-
-import "./BoardContainer.scss";
+import { clickCell, toggleTurn } from "../../actions";
+import { bindActionCreators } from "redux";
+import { BoardCell, Board } from "../../components";
 
 class BoardContainer extends Component {
   state = {
@@ -11,7 +10,13 @@ class BoardContainer extends Component {
   };
 
   onClickCell = ({ number, picked }) => {
-    const { clickCell, started, turn, player, toggleTurn } = this.props;
+    const {
+      started,
+      turn,
+      player,
+      /*toggleTurn, clickCell */ boardActions
+    } = this.props;
+    const { toggleTurn, clickCell } = boardActions;
     if (started && turn === player && !picked) {
       clickCell(number);
       toggleTurn(player);
@@ -39,12 +44,7 @@ class BoardContainer extends Component {
       />
     ));
     return (
-      <div className="board--wrapper">
-        {cells}
-        {onModal && (
-          <Modal comment="잘못된 차례입니다." onClick={this.onCloseModal} />
-        )}
-      </div>
+      <Board cells={cells} onModal={onModal} onCloseModal={this.onCloseModal} />
     );
   }
 }
@@ -56,8 +56,9 @@ const mapStateToProps = state => ({
   turn: state.bingo.turn
 });
 const mapDispatchToProps = dispatch => ({
-  clickCell: number => dispatch(clickCell(number)),
-  toggleTurn: turn => dispatch(toggleTurn(turn))
+  boardActions: bindActionCreators({ clickCell, toggleTurn }, dispatch)
+  // clickCell: number => dispatch(clickCell(number)),
+  // toggleTurn: turn => dispatch(toggleTurn(turn))
 });
 
 export default connect(

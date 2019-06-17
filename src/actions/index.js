@@ -1,4 +1,4 @@
-import * as types from "./ActionTypes";
+import { types } from "./ActionTypes";
 
 export const setGame = (fstBoard, sndBoard) => ({
   type: types.SET_GAME,

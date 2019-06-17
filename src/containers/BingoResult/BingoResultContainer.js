@@ -1,20 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { BingoResult } from "../../components";
-
-import "./BingoResultContainer.scss";
+import { BingoResult, BingoResultList } from "../../components";
 
 class BingoResultContainer extends Component {
   render() {
     const { fstBingoList, sndBingoList, player } = this.props;
     const result = player === 1 ? fstBingoList : sndBingoList;
-    const resultBars = result.map(result => <BingoResult result={result} />);
-    return (
-      <div className="bingo--result--wrapper">
-        <p className="bingo--result--title">완성 줄</p>
-        {resultBars}
-      </div>
-    );
+    const resultItems = result.map(result => <BingoResult result={result} />);
+    return <BingoResultList resultItems={resultItems} />;
   }
 }
 
