@@ -1,16 +1,14 @@
 import generateRandom from "./generateRandom";
 
-export function makeBingo() {
-  const bingo = [...Array(25)].map((i, index) => index + 1);
-  let index1 = 0,
-    index2 = 0,
+export function makeBingo(size) {
+  const bingo = [...Array(size)].map((i, index) => index + 1);
+  let index = 0,
     temp = 0;
-  for (let i = 0; i < 25; i++) {
-    index1 = generateRandom();
-    index2 = generateRandom();
-    temp = bingo[index1];
-    bingo[index1] = bingo[index2];
-    bingo[index2] = temp;
+  for (let i = 0; i < bingo.length; i++) {
+    index = generateRandom();
+    temp = bingo[index];
+    bingo[index] = bingo[i];
+    bingo[i] = temp;
   }
   return bingo;
 }

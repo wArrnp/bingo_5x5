@@ -9,7 +9,7 @@ import { Modal } from "./components";
 class App extends React.Component {
   onClickButton = () => {
     const { setGame } = this.props;
-    setGame(makeBingo(), makeBingo());
+    setGame(makeBingo(25), makeBingo(25));
   };
 
   onReset = () => {
