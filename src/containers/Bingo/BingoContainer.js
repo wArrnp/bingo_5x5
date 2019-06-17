@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import BoardContainer from "./BoardContainer";
 import { connect } from "react-redux";
 
 import "./BingoContainer.scss";
-import BingoResultContainer from "./BingoResultContainer";
+import { BingoResult, Board } from "../";
 
-class BingoWrapper extends Component {
+class BingoContainer extends Component {
   render() {
     const { player, turn } = this.props;
     return (
@@ -13,8 +12,8 @@ class BingoWrapper extends Component {
         <p className="bingo--player">{`${player}p${
           player === turn ? "(턴)" : ""
         }`}</p>
-        <BoardContainer player={player} />
-        <BingoResultContainer player={player} />
+        <Board player={player} />
+        <BingoResult player={player} />
       </div>
     );
   }
@@ -27,4 +26,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   null
-)(BingoWrapper);
+)(BingoContainer);

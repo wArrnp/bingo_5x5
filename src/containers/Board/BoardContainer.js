@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { clickCell, toggleTurn } from "../actions/index";
-import BoardCell from "../components/BoardCell";
+import { clickCell, toggleTurn } from "../../actions/index";
+import { BoardCell, Modal } from "../../components";
 
 import "./BoardContainer.scss";
-import Modal from "../components/Modal";
 
-class BoardWrapper extends Component {
+class BoardContainer extends Component {
   state = {
     onModal: false
   };
@@ -64,4 +63,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(BoardWrapper);
+)(BoardContainer);

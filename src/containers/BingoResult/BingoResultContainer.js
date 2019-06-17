@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import BingoResult from "../components/BingoResult";
+import { BingoResult } from "../../components";
 
 import "./BingoResultContainer.scss";
 

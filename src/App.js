@@ -3,8 +3,8 @@ import "./App.scss";
 import { connect } from "react-redux";
 import { setGame, resetBoard } from "./actions";
 import { makeBingo } from "./utils/makeBingo";
-import BingoContainer from "./containers/BingoContainer";
-import Modal from "./components/Modal";
+import { Bingo } from "./containers";
+import { Modal } from "./components";
 
 class App extends React.Component {
   onClickButton = () => {
@@ -28,8 +28,8 @@ class App extends React.Component {
     }
     return (
       <div className="App">
-        <BingoContainer player={1} />
-        <BingoContainer player={2} />
+        <Bingo player={1} />
+        <Bingo player={2} />
         <button className="bingo--button" onClick={this.onClickButton}>
           {started ? "게임 재시작" : "게임 시작"}
         </button>
