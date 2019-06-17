@@ -2,10 +2,9 @@ import React from "react";
 import "./App.scss";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { settingActions } from "./actions";
+import { settingActions, modalActions } from "./actions";
 import { makeBingo } from "./utils/makeBingo";
-import { Bingo } from "./containers";
-import { Modal } from "./components";
+import { Bingo, Modal } from "./containers";
 
 class App extends React.Component {
   onClickButton = () => {
@@ -18,32 +17,35 @@ class App extends React.Component {
     resetBoard();
   };
 
-  render() {
-    const {
-      started,
-      firstBingoCompletedLines,
-      secondBingoCompletedLines
-    } = this.props;
-    let result = null;
-    if (
-      firstBingoCompletedLines.length >= 5 &&
-      secondBingoCompletedLines.length >= 5
-    )
-      result = "무승부입니다.";
-    else {
-      if (firstBingoCompletedLines.length >= 5)
-        result = "1P가 빙고를 완성했습니다.";
-      if (secondBingoCompletedLines.length >= 5)
-        result = "2P가 빙고를 완성했습니다.";
+  componentWillReceiveProps(nextProps) {
+    if (nextProps !== this.props) {
+      const {
+        firstBingoCompletedLines,
+        secondBingoCompletedLines,
+        ModalActions
+      } = nextProps;
+      if (
+        firstBingoCompletedLines.length >= 5 &&
+        secondBingoCompletedLines.length >= 5
+      )
+        ModalActions.setModal("draw");
+      else {
+        if (firstBingoCompletedLines.length >= 5) ModalActions.setModal("1p");
+        if (secondBingoCompletedLines.length >= 5) ModalActions.setModal("2p");
+      }
     }
+  }
+
+  render() {
+    const { isStarted } = this.props;
     return (
       <div className="App">
         <Bingo player={1} />
         <Bingo player={2} />
         <button className="bingo--button" onClick={this.onClickButton}>
-          {started ? "게임 재시작" : "게임 시작"}
+          {isStarted ? "게임 재시작" : "게임 시작"}
         </button>
-        {result && <Modal comment={result} onClick={this.onReset} />}
+        <Modal />
       </div>
     );
   }
@@ -55,7 +57,8 @@ const mapStateToProps = state => ({
   secondBingoCompletedLines: state.bingo.secondBingoCompletedLines
 });
 const mapDispatchToProps = dispatch => ({
-  SettingActions: bindActionCreators(settingActions, dispatch)
+  SettingActions: bindActionCreators(settingActions, dispatch),
+  ModalActions: bindActionCreators(modalActions, dispatch)
 });
 
 export default connect(

@@ -1,4 +1,4 @@
-import { types } from "../actions/ActionTypes";
+import { bingoTypes } from "../actions/ActionTypes";
 import { getCompletedLinesCombineIndex } from "../utils/getCompletedLinesCombineIndex";
 
 const initBingoBoard = size => {
@@ -17,7 +17,7 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case types.SET_GAME:
+    case bingoTypes.SET_GAME:
       const newFirstBoard = action.firstBoard.map(number => ({
         number,
         isPicked: false
@@ -37,7 +37,7 @@ export default function(state = initialState, action) {
         turn: 1
       };
 
-    case types.CLICK_CELL:
+    case bingoTypes.CLICK_CELL:
       const firstIndex = state.firstBoard.findIndex(
         ({ number }) => number === action.number
       );
@@ -76,7 +76,7 @@ export default function(state = initialState, action) {
         ],
         turn: action.turn === 1 ? 2 : 1
       };
-    case types.RESET_BOARD:
+    case bingoTypes.RESET_BOARD:
       return initialState;
     default:
       return state;

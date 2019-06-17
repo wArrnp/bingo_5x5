@@ -6,7 +6,7 @@ const BingoBoardCell = ({ number, isPicked, onClickCell }) => {
   return (
     <div
       onClick={onClickCell}
-      className={`board--cell ${isPicked && "picked"}`}
+      className={`bingo--board--cell ${isPicked && "picked"}`}
     >
       {number}
     </div>

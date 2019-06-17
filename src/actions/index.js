@@ -1,20 +1,25 @@
-import { types } from "./ActionTypes";
+import { bingoTypes, modalTypes } from "./ActionTypes";
 
 export const settingActions = {
   setGame: (firstBoard, secondBoard) => ({
-    type: types.SET_GAME,
+    type: bingoTypes.SET_GAME,
     firstBoard,
     secondBoard
   }),
   resetBoard: () => ({
-    type: types.RESET_BOARD
+    type: bingoTypes.RESET_BOARD
   })
 };
 
 export const playingActions = {
   clickCell: (number, turn) => ({
-    type: types.CLICK_CELL,
+    type: bingoTypes.CLICK_CELL,
     number,
     turn
   })
+};
+
+export const modalActions = {
+  setModal: modalType => ({ type: modalTypes.SET_MODAL, modalType }),
+  closeModal: () => ({ type: modalTypes.CLOSE_MODAL })
 };

@@ -1,34 +1,28 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { playingActions } from "../../actions";
+import { playingActions, modalActions } from "../../actions";
 import { bindActionCreators } from "redux";
 import { BingoBoardCell, BingoBoard } from "../../components";
 
 class BingoBoardContainer extends Component {
-  state = {
-    onModal: false
-  };
-
-  onClickCell = ({ number, picked }) => {
-    const { isStarted, turn, player, PlayingActions } = this.props;
+  onClickCell = ({ number, isPicked }) => {
+    const {
+      isStarted,
+      turn,
+      player,
+      PlayingActions,
+      ModalActions
+    } = this.props;
     const { clickCell } = PlayingActions;
-    if (isStarted && turn === player && !picked) {
+    if (isStarted && turn === player && !isPicked) {
       clickCell(number, player);
     } else if (isStarted && turn !== player) {
-      this.setState({
-        onModal: true
-      });
+      ModalActions.setModal("no-turn");
     }
   };
 
-  onCloseModal = () => {
-    this.setState({
-      onModal: false
-    });
-  };
   render() {
     const { player, firstBoard, secondBoard } = this.props;
-    const { onModal } = this.state;
     const board = player === 1 ? firstBoard : secondBoard;
     const cells = board.map(data => (
       <BingoBoardCell
@@ -37,13 +31,7 @@ class BingoBoardContainer extends Component {
         onClickCell={() => this.onClickCell(data)}
       />
     ));
-    return (
-      <BingoBoard
-        cells={cells}
-        onModal={onModal}
-        onCloseModal={this.onCloseModal}
-      />
-    );
+    return <BingoBoard cells={cells} onCloseModal={this.onCloseModal} />;
   }
 }
 
@@ -54,9 +42,8 @@ const mapStateToProps = state => ({
   turn: state.bingo.turn
 });
 const mapDispatchToProps = dispatch => ({
-  PlayingActions: bindActionCreators(playingActions, dispatch)
-  // clickCell: number => dispatch(clickCell(number)),
-  // toggleTurn: turn => dispatch(toggleTurn(turn))
+  PlayingActions: bindActionCreators(playingActions, dispatch),
+  ModalActions: bindActionCreators(modalActions, dispatch)
 });
 
 export default connect(
