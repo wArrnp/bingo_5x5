@@ -1,0 +1,29 @@
+.modal {
+  &--wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 100;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  &--inner--wrapper {
+    width: 20vw;
+    height: 40vh;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 25px;
+    background-color: white;
+  }
+  &--button {
+    width: 10rem;
+    height: 3rem;
+  }
+}

@@ -1,0 +1,12 @@
+.bingo--result {
+  &--wrapper {
+    height: 23vh;
+    margin-top: 1vh;
+    border: 1px dashed black;
+  }
+
+  &--title {
+    text-align: center;
+    margin-top: 0;
+  }
+}

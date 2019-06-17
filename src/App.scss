@@ -1,0 +1,13 @@
+.App {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100vh;
+}
+
+.bingo--button {
+  position: absolute;
+  bottom: 5rem;
+  width: 7rem;
+  height: 3rem;
+}
