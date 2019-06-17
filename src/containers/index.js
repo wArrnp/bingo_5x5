@@ -1,5 +1,5 @@
 import Bingo from "./Bingo/BingoContainer";
 import BingoResult from "./BingoResult/BingoResultContainer";
-import Board from "./Board/BoardContainer";
+import BingoBoard from "./BingoBoard/BingoBoardContainer";
 
-export { Bingo, BingoResult, Board };
+export { Bingo, BingoResult, BingoBoard };

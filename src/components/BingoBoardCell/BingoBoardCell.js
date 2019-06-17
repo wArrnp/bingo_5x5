@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./BoardCell.scss";
+import "./BingoBoardCell.scss";
 
 const BoardCell = ({ number, picked, onClickCell }) => {
   return (

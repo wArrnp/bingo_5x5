@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BingoResult, Board as BoardContainer } from "../../containers";
+import { BingoResult, BingoBoard } from "../../containers";
 
 import "./Bingo.scss";
 
@@ -10,7 +10,7 @@ const Bingo = ({ player, turn }) => {
       <p className="bingo--player">{`${player}p${
         player === turn ? "(턴)" : ""
       }`}</p>
-      <BoardContainer player={player} />
+      <BingoBoard player={player} />
       <BingoResult player={player} />
     </div>
   );

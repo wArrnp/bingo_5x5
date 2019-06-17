@@ -2,7 +2,7 @@ import React from "react";
 
 import { Modal } from "../index";
 
-import "./Board.scss";
+import "./BingoBoard.scss";
 
 const Board = ({ cells, onModal, onCloseModal }) => {
   return (

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { playingActions } from "../../actions";
 import { bindActionCreators } from "redux";
-import { BoardCell, Board } from "../../components";
+import { BingoBoardCell, BingoBoard } from "../../components";
 
 class BoardContainer extends Component {
   state = {
@@ -31,14 +31,18 @@ class BoardContainer extends Component {
     const { onModal } = this.state;
     const board = player === 1 ? fstBoard : sndBoard;
     const cells = board.map(data => (
-      <BoardCell
+      <BingoBoardCell
         number={data.number}
         picked={data.picked}
         onClickCell={() => this.onClickCell(data)}
       />
     ));
     return (
-      <Board cells={cells} onModal={onModal} onCloseModal={this.onCloseModal} />
+      <BingoBoard
+        cells={cells}
+        onModal={onModal}
+        onCloseModal={this.onCloseModal}
+      />
     );
   }
 }
