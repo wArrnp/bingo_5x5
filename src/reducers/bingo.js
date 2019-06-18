@@ -2,7 +2,6 @@ import { bingoTypes } from "../actions/ActionTypes";
 import { getCompletedLinesCombineIndex } from "../utils/getCompletedLinesCombineIndex";
 
 const initBingoBoard = size => {
-  // return [...Array(25)].map(() => ({ number: undefined, picked: false }));
   return Array(25).fill({ number: undefined, isPicked: false });
 };
 

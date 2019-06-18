@@ -29,6 +29,7 @@ class BingoBoardContainer extends Component {
         number={data.number}
         isPicked={data.isPicked}
         onClickCell={() => this.onClickCell(data)}
+        key={`${data.number}-${player}`}
       />
     ));
     return <BingoBoard cells={cells} onCloseModal={this.onCloseModal} />;

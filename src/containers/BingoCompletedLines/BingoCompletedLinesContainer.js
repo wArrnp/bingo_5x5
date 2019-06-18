@@ -12,7 +12,9 @@ class BingoCompletedLinesContainer extends Component {
     const completedLinesArray =
       player === 1 ? firstBingoCompletedLines : secondBingoCompletedLines;
     const completedLines = completedLinesArray.map(result => (
-      <p className="bingo--completed--lines--bar">{result.join("-")}</p>
+      <p className="bingo--completed--lines--bar" key={`${player}-${result}`}>
+        {result.join("-")}
+      </p>
     ));
     return <BingoCompletedLines completedLines={completedLines} />;
   }
