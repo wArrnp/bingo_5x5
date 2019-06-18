@@ -24,12 +24,12 @@ class BingoBoardContainer extends Component {
   render() {
     const { player, firstBoard, secondBoard } = this.props;
     const board = player === 1 ? firstBoard : secondBoard;
-    const cells = board.map(data => (
+    const cells = board.map((data, index) => (
       <BingoBoardCell
         number={data.number}
         isPicked={data.isPicked}
         onClickCell={() => this.onClickCell(data)}
-        key={`${data.number}-${player}`}
+        key={`${index}-${player}`}
       />
     ));
     return <BingoBoard cells={cells} onCloseModal={this.onCloseModal} />;
